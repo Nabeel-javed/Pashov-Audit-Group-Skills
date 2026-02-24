@@ -1,83 +1,75 @@
 # AI Skills
 
-> A community-curated library of skills for AI assistants — Claude, ChatGPT, Gemini, and beyond.
+> Modular, agent-agnostic skills for Claude Code, Codex, Copilot, Cursor, Windsurf, and beyond.
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg)](CONTRIBUTING.md)
-[![Code of Conduct](https://img.shields.io/badge/code%20of%20conduct-enforced-blue.svg)](CODE_OF_CONDUCT.md)
 [![CI](https://github.com/pashov/skills/actions/workflows/ci.yml/badge.svg)](https://github.com/pashov/skills/actions/workflows/ci.yml)
 
----
-
-## What are AI Skills?
-
-AI Skills are reusable, shareable building blocks that extend the capabilities of AI assistants. Each skill defines a focused capability — a system prompt, a tool definition, a workflow template, or a slash command — that can be dropped into your AI environment of choice.
-
-Think of them as plugins for your AI assistant.
+Drop a skill into your AI environment and it gains a focused, reusable capability — like a plugin, but for AI agents.
 
 ---
 
-## Supported Platforms
+## Skills
 
-| Platform               | Type                                              | Notes                                 |
-| ---------------------- | ------------------------------------------------- | ------------------------------------- |
-| **Claude** (Anthropic) | Slash commands, system prompts, hooks             | Works with Claude Code and Claude API |
-| **ChatGPT** (OpenAI)   | GPT actions, system prompts, custom instructions  | Works with GPT-4o and o-series models |
-| **Gemini** (Google)    | System instructions, extensions, function calling | Works with Gemini 1.5 Pro / 2.x       |
-| **Generic**            | Prompt templates                                  | Model-agnostic skills usable anywhere |
+| Skill | Description | Category |
+|-------|-------------|----------|
+| [security-review](skills/security-review/) | Fast security feedback on Solidity changes while you develop — for devs, not auditors | Security |
+| [start-audit](skills/start-audit/) | Full audit prep for security researchers — builds, architecture diagrams, threat model | Security |
 
 ---
 
-## Repository Structure
+## Install
+
+**Claude Code** — drop a skill into your global skills directory:
+
+```bash
+cp -r skills/security-review ~/.claude/skills/
+```
+
+Then invoke it:
 
 ```
-skills/
-├── claude/          # Skills for Anthropic Claude (Claude Code, API)
-├── openai/          # Skills for OpenAI ChatGPT / GPT models
-├── gemini/          # Skills for Google Gemini
-├── generic/         # Model-agnostic prompt templates & workflows
-└── _template/       # Starter template for new skills
+/security-review path/to/Contract.sol
 ```
+
+**Other agents** — copy `SKILL.md` into your agent's system prompt or context window.
 
 ---
 
 ## Quick Start
 
-### Using a Skill
-
-1. Browse the [`skills/`](skills/) directory and pick a skill.
-2. Read the skill's `README.md` for platform-specific setup instructions.
-3. Copy the skill into your AI environment (API system prompt, Claude Code `~/.claude/`, etc.).
-
-## Creating a Skill
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for the full guide. The short version:
-
-1. Copy [`skills/_template/`](skills/_template/) to the appropriate platform folder.
-2. Fill in your skill's `skill.json` manifest and `system.md` prompt.
-3. Add a `README.md` with usage instructions and examples.
-4. Open a pull request.
+1. Pick a skill from the table above.
+2. Copy it to your agent's skills directory (see Install above).
+3. Invoke it by name in a new conversation.
 
 ---
 
 ## Contributing
 
-We welcome contributions of all kinds — new skills, bug fixes, documentation improvements, and translations. Please read [CONTRIBUTING.md](CONTRIBUTING.md) before submitting.
+We welcome new skills, improvements, and fixes. One skill, one purpose — see [AGENTS.md](AGENTS.md) for contribution rules.
+
+1. Copy an existing skill as a starting point.
+2. Fill in `SKILL.md` — frontmatter `name` and `description` are required.
+3. Add a `README.md` with usage examples.
+4. Open a pull request.
 
 ---
 
-## Security
+## Structure
 
-To report a security vulnerability, please follow our [Security Policy](SECURITY.md). Do not open a public issue.
+```
+skills/
+└── skill-name/
+    ├── SKILL.md         # Required — frontmatter + instructions
+    ├── README.md        # Usage and examples
+    ├── scripts/         # Executable helpers
+    ├── references/      # Docs loaded into context
+    └── assets/          # Templates and static files
+```
 
 ---
 
-## Code of Conduct
+## Security · Code of Conduct · License
 
-This project follows the [Contributor Covenant Code of Conduct](CODE_OF_CONDUCT.md). By participating, you agree to uphold its standards.
-
----
-
-## License
-
-[MIT](LICENSE) © contributors
+Report vulnerabilities via [Security Policy](SECURITY.md). This project follows the [Contributor Covenant](CODE_OF_CONDUCT.md). [MIT](LICENSE) © contributors.
