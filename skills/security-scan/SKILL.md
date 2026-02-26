@@ -7,7 +7,7 @@ description: Fast, focused security feedback on Solidity code while you develop 
 
 Fast, focused security feedback while you're developing. Catch real issues early - before they reach an audit or mainnet.
 
-Before scanning any code (unless a tight time budget applies — see Time Budget below), read the full attack vector reference:
+Before scanning any code (only when `--max-run-time` is 300s or more), read the full attack vector reference:
 
 ```
 references/attack-vectors.md
@@ -28,20 +28,19 @@ It defines the disclaimer, severity classification, output format, and ordering 
 - **Default** (no arguments): run `git diff HEAD --name-only`, filter for `.sol` files. Stop and say so if there are no changed Solidity files.
 - **ALL**: scan all `.sol` files in the repo (exclude `lib/`, `out/`, `node_modules/`, `.git/`).
 - **`$filename`**: scan that specific file only.
-- **`--max-run-time=N`** (optional, in seconds): cap the scan to a time budget. Adjusts scope, depth, and severity coverage based on the tier below. `--fast` is an alias for `--max-run-time=60`.
+- **`--max-run-time=N`** (optional, in seconds, default `120`): set the time budget. Adjusts scope, depth, and severity coverage based on the tier below. Use a lower value for a faster gut-check; use a higher value for a deeper scan.
 - **`--confidence=N`** (optional, default `80`): minimum confidence score (0–100) a finding must reach to be reported. Lower values cast a wider net; higher values report only near-certain issues. Example: `--confidence=70` for a broad sweep, `--confidence=95` for a tight, high-signal report.
 
 ## Time Budget
 
-When `--max-run-time=N` is set, apply the constraints for the matching tier. Tiers are cumulative — a higher budget includes everything from lower tiers.
+The default run time is **120 seconds**. Apply the constraints for the matching tier. Tiers are cumulative — a higher budget includes everything from lower tiers.
 
 | Budget | Severities | Reference files | Assets | File cap (ALL mode) |
 |---|---|---|---|---|
 | ≤ 30s | CRITICAL only | Skip — use built-in knowledge | Skip | 2 files |
 | ≤ 60s | CRITICAL, HIGH | Skip — use built-in knowledge | Skip | 5 files |
-| ≤ 120s | CRITICAL, HIGH, MEDIUM | Skip — use built-in knowledge | Load | All files |
+| ≤ 120s **(default)** | CRITICAL, HIGH, MEDIUM | Skip — use built-in knowledge | Load | All files |
 | ≤ 300s | All severities | Read `attack-vectors.md` | Load | All files |
-| No limit (default) | All severities | Read `attack-vectors.md` | Load | All files |
 
 **Built-in high-yield vectors** (used when `attack-vectors.md` is skipped): reentrancy (single, cross-function, read-only), missing/incorrect access control, unprotected initializer, oracle spot-price manipulation, flash loan price manipulation, unchecked arithmetic in value flows, msg.value reuse in loop/multicall, delegatecall to user-controlled address, signature replay, abi.encodePacked hash collision, price slippage (no min output).
 
