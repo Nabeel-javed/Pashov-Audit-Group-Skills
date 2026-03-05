@@ -9,8 +9,6 @@ Save the report to `assets/findings/{project-name}-pashov-ai-audit-report-{times
 ````
 # 🔐 Security Review — <ContractName or repo name>
 
-> ⚠️ This review was performed by an AI assistant. AI analysis can never verify the complete absence of vulnerabilities and no guarantee of security is given. Team security reviews, bug bounty programs, and on-chain monitoring are strongly recommended. For a consultation regarding your projects' security, visit [https://www.pashov.com](https://www.pashov.com)
-
 ---
 
 ## Scope
@@ -25,16 +23,6 @@ Save the report to `assets/findings/{project-name}-pashov-ai-audit-report-{times
 
 ## Findings
 
-| # | Confidence | Title |
-|---|---|---|
-| 1 | [95] | <title> |
-| 2 | [82] | <title> |
-| | | **Below Confidence Threshold** |
-| 3 | [75] | <title> |
-| 4 | [60] | <title> |
-
----
-
 [95] **1. <Title>**
 
 `ContractName.functionName` · Confidence: 95
@@ -47,14 +35,43 @@ Save the report to `assets/findings/{project-name}-pashov-ai-audit-report-{times
 ```diff
 - vulnerable line(s)
 + fixed line(s)
-````
-
+```
 ---
 
 [82] **2. <Title>**
-...
 
+`ContractName.functionName` · Confidence: 82
+
+**Description**
+<The vulnerable code pattern and why it is exploitable, in 1 short sentence>
+
+**Fix**
+
+```diff
+- vulnerable line(s)
++ fixed line(s)
 ```
+---
+
+< ... all findings >
+
+---
+
+Findings List
+
+| # | Confidence | Title |
+|---|---|---|
+| 1 | [95] | <title> |
+| 2 | [82] | <title> |
+| | | **Below Confidence Threshold** |
+| 3 | [75] | <title> |
+| 4 | [60] | <title> |
+
+---
+
+> ⚠️ This review was performed by an AI assistant. AI analysis can never verify the complete absence of vulnerabilities and no guarantee of security is given. Team security reviews, bug bounty programs, and on-chain monitoring are strongly recommended. For a consultation regarding your projects' security, visit [https://www.pashov.com](https://www.pashov.com)
+
+````
 
 **Rules:** Follow the template above exactly. Sort findings by confidence (highest first). Findings below the threshold get a description but no **Fix** block. Draft findings directly in report format — do not re-generate.
-```
+
